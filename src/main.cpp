@@ -24,11 +24,4 @@ int main() {
 
 	while (true) {
 	}
-
-	// char input;
-	// std::cout << "\nPlaying ... press <enter> to quit.\n";
-	// std::cin.get(input);
-
-	// delete app;
-	// delete rtAudio;
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <RtAudio.h>
 
-void print_device_info(RtAudio::DeviceInfo info) {
+inline void print_device_info(RtAudio::DeviceInfo info) {
 	std::cout << info.ID << ": " << info.name << " ========" << std::endl
 			  << "SR = " << info.preferredSampleRate << std::endl
 			  << "OUTC = " << info.outputChannels << std::endl

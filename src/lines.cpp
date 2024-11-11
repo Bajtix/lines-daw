@@ -1,5 +1,7 @@
 #include "lines.h"
 
+#include "helpers.hpp"
+
 LinesDAW::LinesDAW(RtAudio* rtAudio, uint input, uint output) {
 	this->rtAudio = rtAudio;
 
@@ -19,7 +21,7 @@ LinesDAW::LinesDAW(RtAudio* rtAudio, uint input, uint output) {
 	rtAudio->startStream();
 
 	for (size_t i = 0; i < LINES_TRACK_COUNT; i++) {
-		this->tracks[i] = new Track();
+		this->audioTracks[i] = new Track();
 	}
 }
 
@@ -29,7 +31,7 @@ LinesDAW::~LinesDAW() {
 	}
 
 	for (size_t i = 0; i < LINES_TRACK_COUNT; i++) {
-		delete this->tracks[i];
+		delete this->audioTracks[i];
 	}
 }
 

@@ -7,5 +7,11 @@ int LinesDAW::process(LINES_FORMAT_TYPE* outputBuffer,
 		outputBuffer[i] = inputBuffer[i];
 	}
 
+	std::cout << "SAMPLES " << globalPlayhead << "\tSECONDS"
+			  << this->timeconv.sm2s(this->globalPlayhead) << "\tBEATS"
+			  << this->timeconv.sm2b(this->globalPlayhead) << std::endl;
+
+	this->globalPlayhead += frameCount;
+
 	return 0;
 }
