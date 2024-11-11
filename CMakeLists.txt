@@ -11,14 +11,18 @@ set(SOURCES
 	src/main.cpp
 	src/lines.cpp
 	src/lines_processing.cpp
+	src/track.cpp
+	src/track_metronome.cpp
 )
 
 set(HEADERS
     include/helpers.hpp
-	include/track.h
-	include/lines.h
+	include/track.hpp
+	include/lines.hpp
 	include/constants.h
-	include/timebase.h
+	include/timebase.hpp
+	include/audiobuffer.hpp
+	include/utilitytracks.hpp
 )
 
 add_executable(lines-daw

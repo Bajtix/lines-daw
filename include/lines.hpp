@@ -2,17 +2,25 @@
 #include <RtAudio.h>
 #include <stdint.h>
 
+#include "audiobuffer.hpp"
 #include "constants.h"
-#include "timebase.h"
-#include "track.h"
+#include "timebase.hpp"
+#include "track.hpp"
+#include "utilitytracks.hpp"
+
+class Track;  // forward declaration -> track.hpp
 
 class LinesDAW {
    public:
 	LinesDAW(RtAudio *rtAudio, uint input, uint output);
 	~LinesDAW();
 
+	Timebase *getTimeconv();
+
    private:
 	Track *audioTracks[LINES_TRACK_COUNT];
+	TrackMetronome *metronomeTrack;
+
 	RtAudio *rtAudio;
 	size_t globalPlayhead = 0;
 	uint16_t bpm = 120;

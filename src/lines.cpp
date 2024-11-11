@@ -1,4 +1,4 @@
-#include "lines.h"
+#include "lines.hpp"
 
 #include "helpers.hpp"
 
@@ -18,11 +18,13 @@ LinesDAW::LinesDAW(RtAudio* rtAudio, uint input, uint output) {
 		throw std::exception();
 	}
 
-	rtAudio->startStream();
-
 	for (size_t i = 0; i < LINES_TRACK_COUNT; i++) {
-		this->audioTracks[i] = new Track();
+		this->audioTracks[i] = new Track(this);
 	}
+
+	this->metronomeTrack = new TrackMetronome(this, 523.25);
+
+	rtAudio->startStream();
 }
 
 LinesDAW::~LinesDAW() {
@@ -34,6 +36,8 @@ LinesDAW::~LinesDAW() {
 		delete this->audioTracks[i];
 	}
 }
+
+Timebase* LinesDAW::getTimeconv() { return &this->timeconv; }
 
 int LinesDAW::processInternal(void* obufPtr, void* ibufPtr,
 							  unsigned int nFrames, double streamTime,

@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "helpers.hpp"
-#include "lines.h"
+#include "lines.hpp"
 
 int main() {
 	auto rtAudio = new RtAudio(RtAudio::LINUX_ALSA);
