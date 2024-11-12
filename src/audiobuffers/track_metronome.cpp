@@ -1,7 +1,7 @@
 #include <math.h>
 
-#include "lines.hpp"
-#include "utilitytracks.hpp"
+#include "../lines.hpp"
+#include "tracks.hpp"
 
 TrackMetronome::TrackMetronome(LinesDAW* daw, int16_t frequency)
 	: AudioBuffer(daw) {

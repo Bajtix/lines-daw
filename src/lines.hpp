@@ -3,10 +3,9 @@
 #include <stdint.h>
 
 #include "audiobuffer.hpp"
+#include "audiobuffers/tracks.hpp"
 #include "constants.h"
 #include "timebase.hpp"
-#include "track.hpp"
-#include "utilitytracks.hpp"
 
 class Track;  // forward declaration -> track.hpp
 

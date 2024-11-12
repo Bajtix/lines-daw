@@ -8,43 +8,31 @@ find_package(JACK)
 include(RtAudio)
 
 # add terminal
+set(LINES_TERMINAL 1)
 
-set(TERMINAL_SOURCES
-	src/terminal/ux.cpp
-)
-
-set(TERMINAL_HEADERS
-	include/terminal/ux.hpp
-)
+if(LINES_TERMINAL)
+	set(TERMINAL_SOURCES
+		src/terminal/ux.cpp
+	)
+endif()
 
 set(SOURCES
 	src/main.cpp
 	src/lines.cpp
 	src/lines_processing.cpp
-	src/track.cpp
-	src/track_metronome.cpp
+	src/audiobuffers/track.cpp
+	src/audiobuffers/track_metronome.cpp
 )
 
-set(HEADERS
-    include/helpers.hpp
-	include/track.hpp
-	include/lines.hpp
-	include/constants.h
-	include/timebase.hpp
-	include/audiobuffer.hpp
-	include/utilitytracks.hpp
-	include/linesux.hpp
-)
 
 add_executable(lines-daw
 	${SOURCES}
-	${HEADERS}
 	${TERMINAL_SOURCES}
-	${TERMINAL_HEADERS}
 )
 
-target_compile_definitions(lines-daw PUBLIC LINES_TERMINAL)
-
+if(LINES_TERMINAL)
+	target_compile_definitions(lines-daw PUBLIC LINES_TERMINAL)
+endif()
 
 target_link_libraries(lines-daw PRIVATE RtAudio)
 target_include_directories(lines-daw PRIVATE thirdparty/rtaudio)
