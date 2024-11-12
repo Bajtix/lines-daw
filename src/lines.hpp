@@ -9,12 +9,19 @@
 
 class Track;  // forward declaration -> track.hpp
 
+// helpful for tracks
+#define tc this->daw->getTimeconv()
+
 class LinesDAW {
    public:
 	LinesDAW(RtAudio *rtAudio, uint input, uint output);
 	~LinesDAW();
 
 	Timebase *getTimeconv();
+	size_t getPlayhead();
+	void setPlayhead(size_t where);
+	void setBpm(uint16_t bpm);
+	uint16_t getBpm();
 
    private:
 	Track *audioTracks[LINES_TRACK_COUNT];

@@ -5,8 +5,8 @@
 #include <iostream>
 
 struct Timebase {
-	int* sample_rate;
-	uint16_t* bpm;
+	const int* sample_rate;
+	const uint16_t* bpm;
 
 	inline double sm2s(size_t sample) { return (double)sample / *sample_rate; }
 	inline size_t s2sm(double second) { return second * *sample_rate; }

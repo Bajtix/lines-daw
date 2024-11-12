@@ -3,9 +3,6 @@
 
 #include "constants.h"
 
-// helpful for tracks
-#define tc this->daw->getTimeconv()
-
 class LinesDAW;	 // forward declaration -> lines.hpp
 class Timebase;
 

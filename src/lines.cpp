@@ -39,6 +39,18 @@ LinesDAW::~LinesDAW() {
 
 Timebase* LinesDAW::getTimeconv() { return &this->timeconv; }
 
+void LinesDAW::setPlayhead(size_t where) {
+	this->globalPlayhead = where;  // todo - checks;
+}
+
+size_t LinesDAW::getPlayhead() { return this->globalPlayhead; }
+
+void LinesDAW::setBpm(uint16_t bpm) {
+	if (bpm == 0) throw new std::exception();
+
+	this->bpm = bpm;
+}
+
 int LinesDAW::processInternal(void* obufPtr, void* ibufPtr,
 							  unsigned int nFrames, double streamTime,
 							  RtAudioStreamStatus status, void* udPtr) {
