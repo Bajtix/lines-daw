@@ -13,24 +13,13 @@ typedef TerminalUX UserInterface;
 
 int main() {
 	auto rtAudio = new RtAudio(RtAudio::LINUX_ALSA);
+	auto interface = new UserInterface();
+	auto app = interface->createLines(rtAudio);
 
-	for (auto id : rtAudio->getDeviceIds()) {
-		print_device_info(rtAudio->getDeviceInfo(id));
-	}
-
-	uint inputDevice, outputDevice;
-	std::cout << "Input device: ";
-	std::cin >> inputDevice;
-
-	std::cout << "Output device: ";
-	std::cin >> outputDevice;
-
-	auto app = new LinesDAW(rtAudio, inputDevice, outputDevice);
-
-	auto interface = new UserInterface(app);
-	interface->start();
-	while (true) {
-		interface->run();
+	interface->init(app);
+	int statusCode = interface->start();
+	if (statusCode) return statusCode;
+	while (interface->run() == 0) {	 // todo enum of codes and what they mean
 	}
 	interface->exit();
 }

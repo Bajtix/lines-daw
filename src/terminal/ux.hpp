@@ -1,11 +1,12 @@
 #pragma once
 #include "../linesux.hpp"
 
-class TerminalUX : LinesUX {
+class TerminalUX : public LinesUX {
    public:
-	TerminalUX(LinesDAW* daw) : LinesUX(daw) {}
+	TerminalUX() {};
+	virtual ~TerminalUX();
+	LinesDAW* createLines(RtAudio* rtAudio);
 	int start();
 	int run();
 	void exit();
-	~TerminalUX();
 };
