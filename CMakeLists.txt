@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 project(lines)
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
@@ -34,6 +34,6 @@ if(LINES_TERMINAL)
 	target_compile_definitions(lines-daw PUBLIC LINES_TERMINAL)
 endif()
 
-target_link_libraries(lines-daw PRIVATE RtAudio)
+target_link_libraries(lines-daw PRIVATE RtAudio curses)
 target_include_directories(lines-daw PRIVATE thirdparty/rtaudio)
 target_include_directories(lines-daw PRIVATE include/)
