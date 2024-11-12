@@ -10,9 +10,5 @@ int LinesDAW::process(LINES_FORMAT_TYPE* outputBuffer,
 		this->globalPlayhead++;
 	}
 
-	std::cout << "SAMPLES " << globalPlayhead << "\tSECONDS"
-			  << this->timeconv.sm2s(this->globalPlayhead) << "\tBEATS"
-			  << this->timeconv.sm2b(this->globalPlayhead) << std::endl;
-
 	return 0;
 }

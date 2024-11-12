@@ -6,6 +6,11 @@
 #include "helpers.hpp"
 #include "lines.hpp"
 
+#ifdef LINES_TERMINAL
+#include "terminal/ux.hpp"
+typedef TerminalUX UserInterface;
+#endif
+
 int main() {
 	auto rtAudio = new RtAudio(RtAudio::LINUX_ALSA);
 
@@ -22,6 +27,10 @@ int main() {
 
 	auto app = new LinesDAW(rtAudio, inputDevice, outputDevice);
 
+	auto interface = new UserInterface(app);
+	interface->start();
 	while (true) {
+		interface->run();
 	}
+	interface->exit();
 }
