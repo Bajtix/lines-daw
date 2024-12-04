@@ -11,7 +11,12 @@ int LinesDAW::process(LINES_FORMAT_TYPE* outputBuffer,
 	}
 
 	for (size_t i = 0; i < frameCount; i++) {
-		outputBuffer[i] = inputBuffer[i];
+		if (this->audioRecording)
+			this->audioTracks[0]->writeSample(this->globalPlayhead,
+											  inputBuffer[i]);
+		outputBuffer[i] = this->audioTracks[0]->getSample(this->globalPlayhead);
+
+		// outputBuffer[i] = inputBuffer[i];
 		outputBuffer[i] +=
 			this->metronomeTrack->getSample(this->globalPlayhead);
 		this->globalPlayhead++;

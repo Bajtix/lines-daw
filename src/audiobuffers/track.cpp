@@ -1,5 +1,18 @@
+#include "../lines.hpp"
 #include "tracks.hpp"
 
-LINES_FORMAT_TYPE Track::getSample(size_t at) { return LINES_FORMAT_TYPE(); }
+Track::Track(LinesDAW* daw) : AudioBuffer(daw) {
+	this->bufferLength = tc->b2sm(1);
+	this->buffer = new LINES_FORMAT_TYPE[this->bufferLength];
+}
 
-int Track::writeSample(size_t at, LINES_FORMAT_TYPE sample) { return 0; }
+LINES_FORMAT_TYPE Track::getSample(size_t at) {
+	at = at % this->bufferLength;
+	return this->buffer[at];
+}
+
+int Track::writeSample(size_t at, LINES_FORMAT_TYPE sample) {
+	at = at % this->bufferLength;
+	this->buffer[at] = sample;
+	return 0;
+}

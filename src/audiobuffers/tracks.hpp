@@ -10,7 +10,7 @@ class Track : public AudioBuffer {
    public:
 	size_t loopStart = 0;
 	size_t loopLength = LINES_SAMPLE_RATE * 2;
-	Track(LinesDAW* daw) : AudioBuffer(daw) {}
+	Track(LinesDAW* daw);
 	virtual LINES_FORMAT_TYPE getSample(size_t at);
 	virtual int writeSample(size_t at, LINES_FORMAT_TYPE sample);
 };
