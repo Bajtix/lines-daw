@@ -22,6 +22,9 @@ class LinesDAW {
 	void setPlayhead(size_t where);
 	void setBpm(uint16_t bpm);
 	uint16_t getBpm();
+	void play();
+	void pause();
+	bool isPlaying();
 
    private:
 	Track *audioTracks[LINES_TRACK_COUNT];
@@ -34,6 +37,7 @@ class LinesDAW {
 						 .bpm = &this->bpm};
 
 	bool audioRecording = false;
+	bool playing = false;
 	int8_t audioSelectedTrack = -1;
 
 	int process(LINES_FORMAT_TYPE *outputBuffer, LINES_FORMAT_TYPE *inputBuffer,

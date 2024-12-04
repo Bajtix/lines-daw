@@ -29,6 +29,7 @@ LinesDAW::LinesDAW(RtAudio* rtAudio, uint input, uint output) {
 
 LinesDAW::~LinesDAW() {
 	if (this->rtAudio->isStreamOpen()) {
+		this->rtAudio->stopStream();
 		this->rtAudio->closeStream();
 	}
 
@@ -50,6 +51,12 @@ void LinesDAW::setBpm(uint16_t bpm) {
 
 	this->bpm = bpm;
 }
+
+void LinesDAW::play() { this->playing = true; }
+
+void LinesDAW::pause() { this->playing = false; }
+
+bool LinesDAW::isPlaying() { return this->playing; }
 
 int LinesDAW::processInternal(void* obufPtr, void* ibufPtr,
 							  unsigned int nFrames, double streamTime,

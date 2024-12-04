@@ -22,4 +22,6 @@ int main() {
 	while (interface->run() == 0) {	 // todo enum of codes and what they mean
 	}
 	interface->exit();
+
+	delete app;
 }
