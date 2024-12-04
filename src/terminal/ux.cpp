@@ -76,6 +76,16 @@ void TerminalUX::handleInput() {
 		}
 
 		switch (this->selectedZone) {
+			case TIME_WINDOW:
+				if (c == ' ') {
+					if (this->daw->isPlaying()) {
+						this->daw->pause();
+					} else {
+						this->daw->play();
+					}
+				}
+				break;
+
 			case CONSOLE_WINDOW:
 				if (c == KEY_ENTER || c == '\n') {
 					this->executeCommand(commandBuffer);
@@ -106,8 +116,8 @@ std::vector<std::string> split(std::string* s, const std::string* delimiter) {
 }
 
 void TerminalUX::executeCommand(std::string command) {
-	std::string str = " ";
-	auto args = split(&command, &str);
+	std::string delim = " ";
+	auto args = split(&command, &delim);
 
 	try {
 		if (args[0] == "sbpm" && args.size() == 2) {
@@ -118,7 +128,18 @@ void TerminalUX::executeCommand(std::string command) {
 			} else {
 				this->daw->play();
 			}
-		} else if (args[0] == "q") {
+		} else if (args[0].starts_with("pa")) {
+			this->daw->pause();
+		} else if (args[0].starts_with("pl")) {
+			this->daw->play();
+		} else if (args[0].starts_with("st")) {
+			this->daw->pause();
+			this->daw->setPlayhead(0);
+		} else if (args[0] == "m" && args.size() == 2) {
+			this->daw->setPlayhead(std::stoi(args[1]));
+		}
+
+		else if (args[0] == "q") {
 			this->shouldQuit = true;
 		}
 	} catch (std::exception e) {
@@ -131,6 +152,11 @@ int TerminalUX::run() {
 
 	this->updateTimeWindows(timeSamples);
 	this->updateConsoleWindow();
+
+	attron(COLOR_PAIR(1));
+	mvwprintw(this->window, getmaxy(this->window) - 1, 0,
+			  this->keybindsText.c_str());
+	attron(COLOR_PAIR(0));
 
 	wrefresh(this->window);
 	refresh();
@@ -154,6 +180,10 @@ void TerminalUX::updateTimeWindows(size_t timeSamples) {
 			  std::format("SPL: {:10d} \tBTS: {:04.2f}\tSEC: {:3.2f}",
 						  timeSamples, timeBeats, timeSecs)
 				  .c_str());
+
+	if (this->selectedZone == TIME_WINDOW) {
+		this->keybindsText = "[space] playback";
+	}
 
 	// === METRONOME ===
 	int pos = ((int)floor(timeBeats) % 2)
@@ -183,6 +213,7 @@ void TerminalUX::updateConsoleWindow() {
 	box(this->consoleWindow, 0, 0);
 	mvwprintw(this->consoleWindow, 0, 2, "Terminal");
 	if (this->selectedZone == CONSOLE_WINDOW) {
+		this->keybindsText = "[enter] submit";
 		mvwaddch(this->consoleWindow, 1, 2, ':');
 		mvwprintw(this->consoleWindow, 1, 3, this->commandBuffer.c_str());
 	}

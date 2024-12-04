@@ -22,6 +22,7 @@ class TerminalUX : public LinesUX {
 
 	INTERFACE_ZONE selectedZone;
 	std::string commandBuffer;
+	std::string keybindsText;
 	std::thread* inputThread;
 
 	bool shouldQuit = false;
