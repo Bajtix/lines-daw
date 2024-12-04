@@ -11,10 +11,15 @@ int LinesDAW::process(LINES_FORMAT_TYPE* outputBuffer,
 	}
 
 	for (size_t i = 0; i < frameCount; i++) {
-		if (this->audioRecording)
-			this->audioTracks[0]->writeSample(this->globalPlayhead,
-											  inputBuffer[i]);
-		outputBuffer[i] = this->audioTracks[0]->getSample(this->globalPlayhead);
+		if (this->recording)
+			this->audioTracks[this->selectedTrack]->writeSample(
+				this->globalPlayhead, inputBuffer[i]);
+
+		outputBuffer[i] = 0;
+		for (auto at : this->audioTracks) {
+			outputBuffer[i] +=
+				at->getSample(this->globalPlayhead) / LINES_TRACK_COUNT;
+		}
 
 		// outputBuffer[i] = inputBuffer[i];
 		outputBuffer[i] +=

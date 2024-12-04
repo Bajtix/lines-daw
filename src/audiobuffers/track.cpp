@@ -2,7 +2,7 @@
 #include "tracks.hpp"
 
 Track::Track(LinesDAW* daw) : AudioBuffer(daw) {
-	this->bufferLength = tc->b2sm(1);
+	this->bufferLength = tc->b2sm(4);
 	this->buffer = new LINES_FORMAT_TYPE[this->bufferLength];
 }
 

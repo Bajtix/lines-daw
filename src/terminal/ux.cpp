@@ -137,9 +137,11 @@ void TerminalUX::executeCommand(std::string command) {
 			this->daw->setPlayhead(0);
 		} else if (args[0] == "m" && args.size() == 2) {
 			this->daw->setPlayhead(std::stoi(args[1]));
-		}
-
-		else if (args[0] == "q") {
+		} else if (args[0] == "r") {
+			this->daw->setRecording(!this->daw->isRecording());
+		} else if (args[0] == "sel" && args.size() == 2) {
+			this->daw->setSelectedTrack(std::stoi(args[1]));
+		} else if (args[0] == "q") {
 			this->shouldQuit = true;
 		}
 	} catch (std::exception e) {

@@ -25,6 +25,11 @@ class LinesDAW {
 	void play();
 	void pause();
 	bool isPlaying();
+	void setRecording(bool r);
+	bool isRecording();
+
+	void setSelectedTrack(uint8_t track);
+	uint8_t getSelectedTrack();
 
    private:
 	Track *audioTracks[LINES_TRACK_COUNT];
@@ -36,9 +41,9 @@ class LinesDAW {
 	Timebase timeconv = {.sample_rate = (int *)&LINES_SAMPLE_RATE,
 						 .bpm = &this->bpm};
 
-	bool audioRecording = false;
+	bool recording = false;
 	bool playing = false;
-	int8_t audioSelectedTrack = -1;
+	uint8_t selectedTrack = 0;
 
 	int process(LINES_FORMAT_TYPE *outputBuffer, LINES_FORMAT_TYPE *inputBuffer,
 				unsigned int frameCount, double streamTime);

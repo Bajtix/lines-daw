@@ -58,6 +58,15 @@ void LinesDAW::pause() { this->playing = false; }
 
 bool LinesDAW::isPlaying() { return this->playing; }
 
+void LinesDAW::setRecording(bool r) { this->recording = r; }
+
+bool LinesDAW::isRecording() { return this->recording; }
+
+void LinesDAW::setSelectedTrack(uint8_t track) {
+	if (track > LINES_TRACK_COUNT) track = LINES_TRACK_COUNT - 1;
+	this->selectedTrack = track;
+}
+
 int LinesDAW::processInternal(void* obufPtr, void* ibufPtr,
 							  unsigned int nFrames, double streamTime,
 							  RtAudioStreamStatus status, void* udPtr) {
