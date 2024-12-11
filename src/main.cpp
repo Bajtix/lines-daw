@@ -11,6 +11,11 @@
 typedef TerminalUX UserInterface;
 #endif
 
+#ifdef LINES_RAYLIBUI
+#include "raylibui/ux.hpp"
+typedef RaylibuiUX UserInterface;
+#endif
+
 int main() {
 	auto rtAudio = new RtAudio(RtAudio::LINUX_ALSA);
 	auto interface = new UserInterface();

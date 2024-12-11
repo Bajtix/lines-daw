@@ -1,9 +1,6 @@
 [submodule "thirdparty/rtaudio"]
 	path = thirdparty/rtaudio
 	url = https://github.com/thestk/rtaudio
-[submodule "thirdparty/thirdparty/raylib"]
-	path = thirdparty/thirdparty/raylib
-	url = https://github.com/raysan5/raylib.git
 [submodule "thirdparty/raylib"]
 	path = thirdparty/raylib
 	url = https://github.com/raysan5/raylib.git

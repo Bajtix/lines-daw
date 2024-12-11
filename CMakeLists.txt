@@ -7,13 +7,20 @@ list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 find_package(JACK)
 include(RtAudio)
 
-# add terminal
-set(LINES_TERMINAL 1)
+# add rayib
+set(LINES_RAYLIBUI 1)
 
 if(LINES_TERMINAL)
 	set(TERMINAL_SOURCES
 		src/terminal/ux.cpp
 	)
+endif()
+
+if(LINES_RAYLIBUI)
+	set(RAYLIBUI_SOURCES
+		src/raylibui/ux.cpp
+	)
+	include(Raylib)
 endif()
 
 set(SOURCES
@@ -28,12 +35,18 @@ set(SOURCES
 add_executable(lines-daw
 	${SOURCES}
 	${TERMINAL_SOURCES}
+	${RAYLIBUI_SOURCES}
 )
+
+target_link_libraries(lines-daw PRIVATE RtAudio)
+target_include_directories(lines-daw PRIVATE thirdparty/rtaudio)
 
 if(LINES_TERMINAL)
 	target_compile_definitions(lines-daw PUBLIC LINES_TERMINAL)
+	target_link_libraries(lines-daw PUBLIC curses)
 endif()
 
-target_link_libraries(lines-daw PRIVATE RtAudio curses)
-target_include_directories(lines-daw PRIVATE thirdparty/rtaudio)
-target_include_directories(lines-daw PRIVATE include/)
+if(LINES_RAYLIBUI)
+	target_compile_definitions(lines-daw PUBLIC LINES_RAYLIBUI)
+	target_link_libraries(lines-daw PUBLIC raylib)
+endif()
